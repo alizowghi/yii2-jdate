@@ -36,7 +36,8 @@ Once the extension is installed, add it as a component  :
 Now you can use in your project:
 
 ```php
-Yii::$app->jdate->date('Y-m-d');
+Convert to persian numbers if third parameter is true
+Yii::$app->jdate->date('Y-m-d', false, true);
 ```
 
 You can access dates and times as variable :
