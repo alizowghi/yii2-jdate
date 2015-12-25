@@ -10,7 +10,7 @@ use yii\base\InvalidParamException;
  */
 class DateTime
 {
-	function date($dateFormat, $timeStamp = false)
+	function date($dateFormat, $timeStamp = false, $persianNumber = false)
 	{
 		if(! is_string($dateFormat))
 		{
@@ -125,8 +125,63 @@ class DateTime
 					break;
 			}
 		}
-
+		if($persianNumber){
+			return $this->convertNumbersToPersian($res);
+		}
 		return $res;
+	}
+
+	function convertNumbersToPersian($res){
+		return preg_replace_callback("#[0-9]#", function($matches){return $this->getPersianNumber($matches[0]);}, $res);
+	}
+	
+	function getPersianNumber($number){
+		switch ($number) {
+			case 0:
+				return '۰';
+				break;
+			
+			case 1:
+				return '۱';
+				break;
+				
+			case 2:
+				return '۲';
+				break;
+				
+			case 3:
+				return '۳';
+				break;
+				
+			case 4:
+				return '۴';
+				break;
+				
+			case 5:
+				return '۵';
+				
+				break;
+				
+			case 6:
+				return '۶';
+				break;
+				
+			case 7:
+				return '۷';
+				break;
+				
+			case 8:
+				return '۸';
+				break;	
+				
+			case 9:
+				return '۹';
+				break;	
+																
+			default:
+				
+				break;
+		}
 	}
 
 	function __get($var)
@@ -180,10 +235,10 @@ class DateTime
 		return [
 			'saturday' => 'شنبه',
 			'sunday' => 'یکشنیه',
-			'monday' => 'دو شنیه',
-			'tuesdat' => 'سه شنیه',
-			'wednesday' => 'چهار شنیه',
-			'thursday' => 'پنج شنیه',
+			'monday' => 'دوشنبه',
+			'tuesdat' => 'سه شنبه',
+			'wednesday' => 'چهارشنبه',
+			'thursday' => 'پنجشنبه',
 			'friday' => 'جمعه',
 			
 		];
